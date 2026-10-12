@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Notepad",
+  "version": "1.0",
+  "description": "A lightweight and fast notepad to jot down quick thoughts on any webpage.",
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["first.js", "content.js"],
+      "type": "module",
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {
+                background: #1e1e1e;
+                color: #eee;
+                font-family: "Segoe UI", sans-serif;
+                margin: 0;
+                padding: 10px;
+            }
+            main {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 280px;
+            }
+            h3 {
+                margin: 0 0 5px 0;
+                font-size: 14px;
+                color: #4ec9b0;
+                cursor: pointer;
+                user-select: none;
+                text-align: center;
+                border-bottom: 1px dashed #444;
+                padding-bottom: 5px;
+            }
+            label {
+                font-size: 13px;
+                color: #ccc;
+            }
+            input, textarea, select {
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 14px;
+                background: #2a2a2a;
+                color: #eee;
+                border: 1px solid #3a3a3a;
+                border-radius: 4px;
+                padding: 6px 8px;
+                outline: none;
+            }
+            textarea {
+                min-height: 100px;
+                resize: vertical;
+                font-family: inherit;
+            }
+            button {
+                background: #007acc;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 8px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            button:hover {
+                background: #0095ff;
+            }
+            span {
+                font-size: 12px;
+                color: #aaa;
+                min-height: 16px;
+            }
+            .row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            #secretPanel {
+                display: none;
+                flex-direction: column;
+                gap: 8px;
+                border-top: 1px solid #444;
+                padding-top: 8px;
+                margin-top: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h3 id="coverTitle" title="Notepad">Quick Notepad</h3>
+
+            <div id="coverContent">
+                <textarea id="noteInput" placeholder="Wpisz szybką notatkę..."></textarea>
+                <span id="noteStatus" style="font-size: 11px; color: #888;">Zapisano lokalnie</span>
+            </div>
+
+            <div id="secretPanel">
+                <label for="provider">Provider AI:</label>
+                <select id="provider">
+                    <option value="openai">OpenAI</option>
+                    <option value="gemini">Gemini</option>
+                    <option value="groq">Groq</option>
+                </select>
+
+                <label for="apiKey">Klucz API:</label>
+                <input id="apiKey" placeholder="Wklej klucz API..." />
+
+                <label for="modelSelect">Model AI:</label>
+                <div style="display: flex; gap: 4px;">
+                    <select id="modelSelect" style="flex: 1;">
+                        <option value="">Najpierw zapisz klucz / pobierz modele</option>
+                    </select>
+                    <button id="fetchModels" style="padding: 6px 10px;" title="Pobierz listę modeli">🔄</button>
+                </div>
+
+                <label for="more">Dodatkowe instrukcje:</label>
+                <textarea id="more" placeholder="Dodatkowe instrukcje..." style="min-height: 35px;"></textarea>
+
+                <div class="row">
+                    <input type="checkbox" id="autoClick" style="width: auto; cursor: pointer;" />
+                    <label for="autoClick" style="cursor: pointer; font-size: 12px;">Auto-Click (bez Entera)</label>
+                </div>
+
+                <div class="row">
+                    <input type="checkbox" id="hideIndicator" style="width: auto; cursor: pointer;" />
+                    <label for="hideIndicator" style="cursor: pointer; font-size: 12px;">Ukryj kropkę stanu</label>
+                </div>
+
+                <div class="row">
+                    <input type="checkbox" id="debugMode" style="width: auto; cursor: pointer;" />
+                    <label for="debugMode" style="cursor: pointer; font-size: 12px;">Włącz Debug Mode (konsola)</label>
+                </div>
+
+                <label style="font-size: 12px; margin-top: 2px;">Skrót ewakuacyjny (Self-Destruct):</label>
+                <div style="display: flex; gap: 4px;">
+                    <select id="panicModifier" style="flex: 1; font-size: 11px;">
+                        <option value="none">Brak (sam klawisz)</option>
+                        <option value="ctrl">Ctrl</option>
+                        <option value="alt">Alt</option>
+                        <option value="shift">Shift</option>
+                        <option value="ctrl+alt">Ctrl + Alt</option>
+                        <option value="ctrl+shift">Ctrl + Shift</option>
+                        <option value="alt+shift">Alt + Shift</option>
+                        <option value="ctrl+alt+shift">Ctrl + Alt + Shift</option>
+                    </select>
+                    <select id="panicKey" style="width: 70px; font-size: 11px;">
+                        <option value="F4">F4</option>
+                        <option value="F12">F12</option>
+                        <option value="KeyX">X</option>
+                        <option value="KeyQ">Q</option>
+                        <option value="Escape">Esc</option>
+                    </select>
+                </div>
+
+                <span id="output"></span>
+                <button id="save">Zapisz ustawienia</button>
+            </div>
+        </main>
+        <script src="popup.js"></script>
+    </body>
+</html>
